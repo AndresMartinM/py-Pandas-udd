@@ -201,18 +201,71 @@ dfNombre.filter(items=['Columna1', 'Columna2'])
 
 ### Funciones estadísticas
 
+TODO
 
 ``` py
+# el valor mínimo de la Columna1
+dfNombre.Columna1.min()
 
+# el valor de la mediana de Columna1
+dfNombre.Columna1.median()
+
+# el valor máximo de la Columna1
+dfNombre.Columna1.max()
+
+# el valor promedio o media aritmética de la Columna1
+dfNombre.Columna1.mean()
 ```
-``` py
 
+TODO
+
+``` py
+dfNombre.agg(['sum', 'max', 'min'])
 ```
-``` py
 
+TODO
+
+``` py
+dfNombre.describe()
 ```
-``` py
+---
+Pandas cuenta con una función que permite conocer la correlación entre los datos, donde un valor cercano a 1 indica una correlación directa, un valor cercano a -1 una correlación inversa, y un valor cercano a 0 una no correlación.
 
+``` py
+# muestra la correlación entre los valores de la Columna1, Columna2 y Columna3
+dfNombre.filter(items=['Columna1', 'Columna2', 'Columna3']).corr()
+```
+
+Sabiendo estas funciones ya se puede comenzar a analizar los datos de las tablas mezclándolas de la siguiente manera:
+
+``` py
+import pandas as pd
+
+dfNombre1 = pd.read_excel("aquí el link entre comillas", sheet_name='1', header=3, index_col='Código región')
+
+dfNombre2 = pd.read_excel("aquí el link entre comillas", sheet_name='2', header=3, index_col='Código región')
+
+dfDatos1 = dfNombre1.filter(items=['Columna1', 'Columna6', 'Columna8'])
+
+dfDatos2 = dfNombre2.filter(items=['Columna3', 'Columna4'])
+
+dfDatos1.agg(['sum', 'max', 'min'])
+```
+Google Colab siempre mostrará los datos de la última línea ingresada en la celda de código, mientras no sea la declaración de una variable. Por lo que basta con poner algo del siguiente estilo para que entregue los valores solicitados luego de presionar `shift+Enter` o el botón de play al costado izquierdo:
+
+``` py
+dfDatos2.describe()
 ```
 
 ## Gráficos
+
+Cada vez que Google Colab responde una celda de código con una tabla muestra la opción de generar tablas de manera automática, esta opción es bastante útil para entender los valores de la tabla de otra forma, pero al ser automáticas no se tiene mucho control de lo que se visualiza en ellas, por lo que es recomendable hacer tablas con ayuda de plotly ([Documentación de plotly](https://plotly.com/python/)). A continuación hay un pequeño ejemplo de como se usa:
+
+``` py
+import plotly.express as px
+```
+TODO
+
+---
+
+TODO
