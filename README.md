@@ -5,7 +5,7 @@ Para usar python y pandas se usará la plataforma online Google Colab: [https://
 
 ## Primeros pasos
 
-Tras abrir Google Colab hay que crear un nuevo notebook en el que se desarrollará el análisis, dentro el entorno es parecido al de Google Docs, arriba se muestra el nomre del archivo (haciendo click en él se puede cambiar), hay una nube que indica si el archivo está guardado, también esta la barra de opciones; y ya más abajo debería aparecer una celda de código (con un ícono de *play*); existen 2 tipos de celdas, las de código y las de texto, estas se pueden agregar con el botón del menú de opciones o con los botones que aparecen al poner el cursor bajo una celda. En cada celda de código se puede escribir y ejecutar python.
+Tras abrir Google Colab hay que crear un nuevo notebook en el que se desarrollará el análisis, dentro el entorno es parecido al de Google Docs, arriba se muestra el nombre del archivo (haciendo click en él se puede cambiar), hay una nube que indica si el archivo está guardado, también esta la barra de opciones; y ya más abajo debería aparecer una celda de código (con un ícono de *play*); existen 2 tipos de celdas, las de código y las de texto, estas se pueden agregar con el botón del menú de opciones o con los botones que aparecen al poner el cursor bajo una celda. En cada celda de código se puede escribir y ejecutar python.
 
 Como primer paso para comenzar a trabajar con Pandas, hay que traer la biblioteca de código 'pandas', esto se hace con la siguiente línea de código:
 
