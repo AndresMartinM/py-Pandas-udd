@@ -203,6 +203,16 @@ Por último la función `filter()` permite filtrar considerando múltiples varia
 dfNombre.filter(items=['Columna1', 'Columna2'])
 ```
 
+Para filtrar los datos nulos que aparecen en las tablas como `NaN` hay que usar la función `dropna()`:
+
+``` py
+# filtra las filas con valores NaN
+dfNombre.dropna(axis=0)
+
+# filtra las columnas con valores NaN
+dfNombre.dropna(axis=1)
+```
+
 Cabe decir que todas estas funciones se pueden combinar.
 
 ### Funciones estadísticas
