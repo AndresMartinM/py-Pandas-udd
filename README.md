@@ -1,15 +1,19 @@
 # Guía de uso de python-pandas
 guía de uso de pandas para el análisis del censo.
 
-Para usar python y pandas se usará la plataforma online Google Colab: [https://colab.research.google.com/](https://colab.research.google.com).
+Para usar python y pandas se usará la plataforma online Google Colab: [https://colab.research.google.com/](https://colab.research.google.com). Esta permite la ejecución de código python desde la nube, por lo que se puede usar en cualguier dispositivo con navegador web.
 
 ## Primeros pasos
 
-Tras abrir TODO
+Tras abrir Google Colab hay que crear un nuevo notebook en el que se desarrollará el análisis, dentro el entorno es parecido al de Google Docs, arriba se muestra el nomre del archivo (haciendo click en él se puede cambiar), hay una nube que indica si el archivo está guardado, también esta la barra de opciones; y ya más abajo debería aparecer una celda de código (con un ícono de *play*); existen 2 tipos de celdas, las de código y las de texto, estas se pueden agregar con el botón del menú de opciones o con los botones que aparecen al poner el cursor bajo una celda. En cada celda de código se puede escribir y ejecutar python.
+
+Como primer paso para comenzar a trabajar con Pandas, hay que traer la biblioteca de código 'pandas', esto se hace con la siguiente línea de código:
 
 ``` py
 import pandas as pd
 ```
+
+Luego lo adecuado sería comenzar a declarar variables relacionadas a los datos que se usarán, las indicaciones para ello están en los siguientes puntos Datos y Variables.
 
 ## Datos
 
@@ -149,13 +153,13 @@ pd.read_xml()
 
 ### Funciones de orden
 
-TODO
+Para ordenar los datos hay un par de funciones que conviene conocer, la primera de ellas `sort_index()` ordena los datos de acuerdo al valor del índice de la tabla (para ello es importante que no hayan valores de índice repetidos).
 
 ``` py
 dfNombre.sort_index()
 ```
 
-TODO
+La siguiente función `sort_values()` permite ordenar una tabla de acuerdo a los valores de una o más columnas, de manera ascendente o descendente.
 
 ``` py
 # orden ascendente según los valores de la columna
@@ -165,7 +169,7 @@ dfNombre.sort_values(by=['Nombre columna'])
 dfNombre.sort_values(by=['Nombre columna'], ascending=False)
 ```
 
-TODO
+La siguiente función `groupby()` agrupa las filas según los valores de una de las columnas, esto puede ser útil cuando hay valores cualitativos o que permiten una clasificación.
 
 ``` py
 dfNombre.groupby(by='Nombre columna')
@@ -173,7 +177,7 @@ dfNombre.groupby(by='Nombre columna')
 
 ### Funciones de filtrado
 
-TODO
+Para ver de forma parcial los datos, hay varias opciones de filtrado, la más simple es la que nos permite ver solo una columna de la tabla es de la siguiente forma:
 
 ``` py
 # muestra la columna seleccionada
@@ -183,7 +187,7 @@ dfNombre['Nombre columna']
 dfNombre.columna
 ```
 
-TODO
+Eso por el lado de las colúmnas, pero tambien se pueden filtrar filas según los valores que tengan en una columna. 
 
 ``` py
 # la tabla solo con las filas que tengan un valor mayor o igual a 100 en la Columna1
@@ -193,15 +197,17 @@ dfNombre[dfNombre['Columna1'] >= 100]
 dfNombre[dfNombre.Columna2 == 'Mujer']
 ```
 
-TODO
+Por último la función `filter()` permite filtrar considerando múltiples variables, en el siguiente ejemplo se usa para ver únicamente la 2 columnas.
 
 ``` py
 dfNombre.filter(items=['Columna1', 'Columna2'])
 ```
 
+Cabe decir que todas estas funciones se pueden combinar.
+
 ### Funciones estadísticas
 
-TODO
+Para obtener resultados estadísticos se pueden usar el siguiente conjunto de funciones:
 
 ``` py
 # el valor mínimo de la Columna1
@@ -217,13 +223,13 @@ dfNombre.Columna1.max()
 dfNombre.Columna1.mean()
 ```
 
-TODO
+También se pueden ver estos valores de manera agregada en una misma tabla usando la función `agg()`.
 
 ``` py
 dfNombre.agg(['sum', 'max', 'min'])
 ```
 
-TODO
+Para ver los resultados estadísticos completos basta con usar la función `describe()`. 
 
 ``` py
 dfNombre.describe()
@@ -264,8 +270,41 @@ Cada vez que Google Colab responde una celda de código con una tabla muestra la
 ``` py
 import plotly.express as px
 ```
-TODO
+
+Luego para generar un gáfico hay que escribir algo del siguiente estilo:
+
+``` py
+# genera un gráfico de acuerdo los datos escogidos
+chart = px.bar(dfNombre[dfNombre.Columna2 == 'Mujer'].filter(items=['Columna1', 'Columna3']), height=600, width=800)
+
+# muestra el gráfico generado
+chart.show()
+```
+
+En `px.bar()` se pueden usar otros tipos de gráfico, como `pie()` o `line()`; todos estos aparecen en la documentación de plotly.
 
 ---
 
-TODO
+Al final la estructura del código podría quedar de la siguiente forma:
+
+``` py
+import pandas as pd
+import plotly.express as px
+
+dfNombre1 = pd.read_excel("aquí el link entre comillas", sheet_name='1', header=3, index_col='Columna3')
+
+dfNombre2 = pd.read_excel("aquí el link entre comillas", sheet_name='2', header=3, index_col='Columna3')
+
+dfDatos1 = dfNombre1.filter(items=['Columna1', 'Columna6', 'Columna8'])
+
+dfDatos2 = dfNombre2.filter(items=['Columna3', 'Columna4'])
+
+dfAgregados = dfDatos1.agg(['sum', 'max', 'min'])
+
+chart = px.pie(dfAgregados), height=1080, width=1080)
+chart.show()
+```
+
+---
+
+>documentado por [AndresMartinM](https://github.com/AndresMartinM) 2025
