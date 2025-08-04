@@ -5,7 +5,22 @@ Para usar python y pandas se usará la plataforma online Google Colab: [https://
 
 ## Primeros pasos
 
-Tras abrir Google Colab hay que crear un nuevo notebook en el que se desarrollará el análisis, dentro el entorno es parecido al de Google Docs, arriba se muestra el nomre del archivo (haciendo click en él se puede cambiar), hay una nube que indica si el archivo está guardado, también esta la barra de opciones; y ya más abajo debería aparecer una celda de código (con un ícono de *play*); existen 2 tipos de celdas, las de código y las de texto, estas se pueden agregar con el botón del menú de opciones o con los botones que aparecen al poner el cursor bajo una celda. En cada celda de código se puede escribir y ejecutar python.
+Tras abrir Google Colab hay que crear un nuevo notebook en el que se desarrollará el análisis, dentro el entorno es parecido al de Google Docs, arriba se muestra el nombre del archivo (haciendo click en él se puede cambiar), hay una nube que indica si el archivo está guardado, también esta la barra de opciones; y ya más abajo debería aparecer una celda de código (con un ícono de *play*); existen 2 tipos de celdas, las de código y las de texto, estas se pueden agregar con el botón del menú de opciones o con los botones que aparecen al poner el cursor bajo una celda. En cada celda de código se puede escribir y ejecutar python.
+
+|Interfaz inicial|
+|---|
+|![pantallazo de la interfaz inicial de google colab](img/colab.png)|
+
+|Tipos de celdas|
+|---|
+|![pantallazo de las celdas](img/celdas.png)|
+
+|<!---->|<!---->|
+| :---: | :---: |
+|Barra superior|Botón play|
+|![](img/nombre.png)|![](img/play.png)|
+|Play cargando|Play listo|
+|![](img/runLoading.png)|![](img/runCheck.png)|
 
 Como primer paso para comenzar a trabajar con Pandas, hay que traer la biblioteca de código 'pandas', esto se hace con la siguiente línea de código:
 
@@ -108,6 +123,8 @@ Para usar estos datos en la plataforma de Google Colab se debe copiar el víncul
 pd.read_excel("aquí el link entre comillas", sheet_name='1', header=3, index_col='Código región')
 ```
 
+![pantallazo del resultado de read_excel()](img/read.png)
+
 Ahí en `sheet_name` se pone el nombre de la hoja que se va a usar, `header` sirve para escoger la fila en que comienza la tabla (en el caso de las tablas del censo es la fila 3), en `index_col` se pone el nombre de la cabecera de la colúmna que se quiera usar como índice, en este caso se usa la colúmna 'Código región'.
 
 ## Variables
@@ -159,6 +176,8 @@ Para ordenar los datos hay un par de funciones que conviene conocer, la primera 
 dfNombre.sort_index()
 ```
 
+![pantallazo del resultado de sort_index()](img/sortIndex.png)
+
 La siguiente función `sort_values()` permite ordenar una tabla de acuerdo a los valores de una o más columnas, de manera ascendente o descendente.
 
 ``` py
@@ -168,6 +187,8 @@ dfNombre.sort_values(by=['Nombre columna'])
 # orden descendente según los valores de la columna
 dfNombre.sort_values(by=['Nombre columna'], ascending=False)
 ```
+
+![pantallazo del resultado de sort_values()](img/sortValues.png)
 
 La siguiente función `groupby()` agrupa las filas según los valores de una de las columnas, esto puede ser útil cuando hay valores cualitativos o que permiten una clasificación.
 
@@ -187,6 +208,8 @@ dfNombre['Nombre columna']
 dfNombre.columna
 ```
 
+![pantallazo de una sola columna](img/columna.png)
+
 Eso por el lado de las colúmnas, pero tambien se pueden filtrar filas según los valores que tengan en una columna. 
 
 ``` py
@@ -196,11 +219,24 @@ dfNombre[dfNombre['Columna1'] >= 100]
 # la tabla solo con las filas con el valor 'Mujer' en la Columna2 
 dfNombre[dfNombre.Columna2 == 'Mujer']
 ```
+![pantallazo de filtro por valor](img/filtroMayorQue.png)
 
 Por último la función `filter()` permite filtrar considerando múltiples variables, en el siguiente ejemplo se usa para ver únicamente la 2 columnas.
 
 ``` py
 dfNombre.filter(items=['Columna1', 'Columna2'])
+```
+
+![pantallazo de filter()](img/filter.png)
+
+Para filtrar los datos nulos que aparecen en las tablas como `NaN` hay que usar la función `dropna()`:
+
+``` py
+# filtra las filas con valores NaN
+dfNombre.dropna(axis=0)
+
+# filtra las columnas con valores NaN
+dfNombre.dropna(axis=1)
 ```
 
 Cabe decir que todas estas funciones se pueden combinar.
@@ -229,18 +265,26 @@ También se pueden ver estos valores de manera agregada en una misma tabla usand
 dfNombre.agg(['sum', 'max', 'min'])
 ```
 
+![pantallazo de agg()](img/agg.png)
+
 Para ver los resultados estadísticos completos basta con usar la función `describe()`. 
 
 ``` py
 dfNombre.describe()
 ```
+
+![pantallazo del resultado de describe()](img/describe.png)
+
 ---
+
 Pandas cuenta con una función que permite conocer la correlación entre los datos, donde un valor cercano a 1 indica una correlación directa, un valor cercano a -1 una correlación inversa, y un valor cercano a 0 una no correlación.
 
 ``` py
 # muestra la correlación entre los valores de la Columna1, Columna2 y Columna3
 dfNombre.filter(items=['Columna1', 'Columna2', 'Columna3']).corr()
 ```
+
+![pantallazo del resultado de corr()](img/corr.png)
 
 Sabiendo estas funciones ya se puede comenzar a analizar los datos de las tablas mezclándolas de la siguiente manera:
 
@@ -265,7 +309,13 @@ dfDatos2.describe()
 
 ## Gráficos
 
-Cada vez que Google Colab responde una celda de código con una tabla muestra la opción de generar tablas de manera automática, esta opción es bastante útil para entender los valores de la tabla de otra forma, pero al ser automáticas no se tiene mucho control de lo que se visualiza en ellas, por lo que es recomendable hacer tablas con ayuda de plotly ([Documentación de plotly](https://plotly.com/python/)). A continuación hay un pequeño ejemplo de como se usa:
+Cada vez que Google Colab responde una celda de código con una tabla muestra la opción de generar tablas de manera automática.
+
+|Botón de gráficos automáticos|
+|---|
+|![pantallazo del botón generador de gráficos](img/botonGraficos.png)|
+
+Esta opción es bastante útil para entender los valores de la tabla de otra forma, pero al ser automáticas no se tiene mucho control de lo que se visualiza en ellas, por lo que es recomendable hacer tablas con ayuda de plotly ([Documentación de plotly](https://plotly.com/python/)). A continuación hay un pequeño ejemplo de como se usa:
 
 ``` py
 import plotly.express as px
@@ -282,6 +332,8 @@ chart.show()
 ```
 
 En `px.bar()` se pueden usar otros tipos de gráfico, como `pie()` o `line()`; todos estos aparecen en la documentación de plotly.
+
+![pantallazo de plotly](img/plotly.png)
 
 ---
 
