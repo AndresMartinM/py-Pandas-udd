@@ -270,7 +270,40 @@ Cada vez que Google Colab responde una celda de código con una tabla muestra la
 ``` py
 import plotly.express as px
 ```
-TODO
+
+Luego para generar un gáfico hay que escribir algo del siguiente estilo:
+
+``` py
+# genera un gráfico de acuerdo los datos escogidos
+chart = px.bar(dfNombre[dfNombre.Columna2 == 'Mujer'].filter(items=['Columna1', 'Columna3']), height=600, width=800)
+
+# muestra el gráfico generado
+chart.show()
+```
+
+En `px.bar()` se pueden usar otros tipos de gráfico, como `pie()` o `line()`; todos estos aparecen en la documentación de plotly.
+
+---
+
+Al final la estructura del código podría quedar de la siguiente forma:
+
+``` py
+import pandas as pd
+import plotly.express as px
+
+dfNombre1 = pd.read_excel("aquí el link entre comillas", sheet_name='1', header=3, index_col='Columna3')
+
+dfNombre2 = pd.read_excel("aquí el link entre comillas", sheet_name='2', header=3, index_col='Columna3')
+
+dfDatos1 = dfNombre1.filter(items=['Columna1', 'Columna6', 'Columna8'])
+
+dfDatos2 = dfNombre2.filter(items=['Columna3', 'Columna4'])
+
+dfAgregados = dfDatos1.agg(['sum', 'max', 'min'])
+
+chart = px.pie(dfAgregados), height=1080, width=1080)
+chart.show()
+```
 
 ---
 
